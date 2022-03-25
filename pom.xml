@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.1</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.wipeoutq</groupId>
+	<artifactId>wipeoutq-microservices-bom</artifactId>
+	<packaging>pom</packaging>
+	<version>${revision}</version>
+
+	<properties>
+		<java.version>11</java.version>
+		<revision>1.0.RELEASE</revision>
+		<main.basedir>${basedir}</main.basedir>
+		<maven.build.timestamp.format>yyyy/MM/dd HH:mm Z</maven.build.timestamp.format>
+
+		<org.json.version>20211205</org.json.version>
+		<spring-cloud.version>2020.0.5</spring-cloud.version>
+		<commons.collections.version>4.4</commons.collections.version>
+		<io.springfox-springfox-boot-starter.version>3.0.0</io.springfox-springfox-boot-starter.version>
+
+		<checkstyle.version>9.2</checkstyle.version>
+		<checkstyle.suppressionsLocation>checkstyle-suppressions.xml</checkstyle.suppressionsLocation>
+		<apt-maven-plugin.version>1.0.4</apt-maven-plugin.version>
+		<directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
+		<maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+		<mycila-license-maven-plugin.version>4.2.rc1</mycila-license-maven-plugin.version>
+		<spring-javaformat-maven-plugin.version>0.0.29</spring-javaformat-maven-plugin.version>
+
+		<commons-net.version>3.8.0</commons-net.version>
+		<dev.samstevens.totp>1.7</dev.samstevens.totp>
+		<com.google.firebase>6.12.2</com.google.firebase>
+
+		<eu.bitwalker>1.21</eu.bitwalker>
+		<jsonwebtoken.version>0.9.1</jsonwebtoken.version>
+		<crypt.version>1.0.RELEASE</crypt.version>
+		<passay.version>1.3.1</passay.version>
+		<cryptacular.version>1.2.4</cryptacular.version>
+		<crypt-util.location>${basedir}/../wipeoutq-microservices-bom/lib/crypt-util.jar</crypt-util.location>
+		<identity.framework.version>1.5.0.0</identity.framework.version>
+		<maxmind.geoip2.version>2.14.0</maxmind.geoip2.version>
+		<uap.java.version>1.4.0</uap.java.version>
+		<commons.csv.version>1.9.0</commons.csv.version>
+		<tika-core.version>1.24.1</tika-core.version>
+		<org.codehaus.groovy>3.0.9</org.codehaus.groovy>
+		<org.opensaml.xmltooling.version>1.4.4</org.opensaml.xmltooling.version>
+		<org.opensaml.version>2.6.4</org.opensaml.version>
+	</properties>
+	<profiles>
+		<profile>
+			<id>windows_profile</id>
+			<activation>
+				<os>
+					<family>Windows</family>
+				</os>
+			</activation>
+			<properties>
+				<checkstyle.suppressionsLocation>checkstyle-suppressions-windows.xml</checkstyle.suppressionsLocation>
+			</properties>
+		</profile>
+	</profiles>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.passay</groupId>
+				<artifactId>passay</artifactId>
+				<version>${passay.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-core</artifactId>
+				<version>${tika-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.cryptacular</groupId>
+				<artifactId>cryptacular</artifactId>
+				<version>${cryptacular.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jsonwebtoken.version}</version>
+			</dependency>
+			<!-- apache.commons dependencies -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons.collections.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>${commons-net.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>dev.samstevens.totp</groupId>
+				<artifactId>totp</artifactId>
+				<version>${dev.samstevens.totp}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>eu.bitwalker</groupId>
+				<artifactId>UserAgentUtils</artifactId>
+				<version>${eu.bitwalker}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.firebase</groupId>
+				<artifactId>firebase-admin</artifactId>
+				<version>${com.google.firebase}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>${org.json.version}</version>
+			</dependency>
+
+			<!-- spring-cloud-dependencies -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-boot-starter</artifactId>
+				<version>${io.springfox-springfox-boot-starter.version}</version>
+			</dependency>
+
+			<!-- Custom dependency -->
+			<dependency>
+				<groupId>com.wipeoutq</groupId>
+				<artifactId>crypt-util</artifactId>
+				<version>${crypt.version}</version>
+			</dependency>
+			<!-- Custom Dependency -->
+			<!-- https://mvnrepository.com/artifact/net.tirasa.connid/connector-framework -->
+			<dependency>
+				<groupId>net.tirasa.connid</groupId>
+				<artifactId>connector-framework</artifactId>
+				<version>${identity.framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.tirasa.connid</groupId>
+				<artifactId>connector-framework-internal</artifactId>
+				<version>${identity.framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.maxmind.geoip2</groupId>
+				<artifactId>geoip2</artifactId>
+				<version>${maxmind.geoip2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.ua-parser</groupId>
+				<artifactId>uap-java</artifactId>
+				<version>${uap.java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-csv</artifactId>
+				<version>${commons.csv.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-all</artifactId>
+				<version>${org.codehaus.groovy}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.opensaml</groupId>
+				<artifactId>xmltooling</artifactId>
+				<version>${org.opensaml.xmltooling.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.opensaml</groupId>
+				<artifactId>opensaml</artifactId>
+				<version>${org.opensaml.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.mysema.maven</groupId>
+					<artifactId>apt-maven-plugin</artifactId>
+					<version>${apt-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>process</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
+								<processor>org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</processor>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- License information -->
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>${mycila-license-maven-plugin.version}</version>
+					<configuration>
+						<licenseSets>
+							<licenseSet>
+								<header>doc/license/License.txt</header>
+								<includes>
+									<include>src/main/java/**</include>
+									<include>src/test/java/**</include>
+								</includes>
+								<excludes>
+									<exclude>**/README</exclude>
+									<exclude>src/test/resources/**</exclude>
+									<exclude>src/main/resources/**</exclude>
+								</excludes>
+								<useDefaultExcludes>true</useDefaultExcludes>
+							</licenseSet>
+						</licenseSets>
+						<aggregate>true</aggregate>
+						<useDefaultExcludes>true</useDefaultExcludes>
+						<!-- <properties></properties> -->
+						<!-- <mapping> <java>JAVAPKG_STYLE</java> </mapping> -->
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>format</goal>
+								<goal>check</goal>
+							</goals>
+							<phase>process-sources</phase>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>io.spring.javaformat</groupId>
+					<artifactId>spring-javaformat-maven-plugin</artifactId>
+					<version>${spring-javaformat-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<phase>validate</phase>
+							<inherited>true</inherited>
+							<goals>
+								<goal>apply</goal>
+								<goal>validate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven-checkstyle-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>${checkstyle.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>io.spring.javaformat</groupId>
+							<artifactId>spring-javaformat-checkstyle</artifactId>
+							<version>${spring-javaformat-maven-plugin.version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+							<id>checkstyle-validation</id>
+							<phase>validate</phase>
+							<inherited>true</inherited>
+							<configuration>
+								<includeTestSourceDirectory>true</includeTestSourceDirectory>
+								<suppressionsLocation>${checkstyle.suppressionsLocation}</suppressionsLocation>
+								<configLocation>io/spring/javaformat/checkstyle/checkstyle.xml</configLocation>
+							</configuration>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>add-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>${project.build.directory}/generated-sources/java</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<configuration>
+						<packaging>jar</packaging>
+						<file>${crypt-util.location}</file>
+						<generatePom>true</generatePom>
+					</configuration>
+					<executions>
+						<execution>
+							<id>install-jar-lib</id>
+							<goals>
+								<goal>install-file</goal>
+							</goals>
+							<phase>validate</phase>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>io.spring.javaformat</groupId>
+				<artifactId>spring-javaformat-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
