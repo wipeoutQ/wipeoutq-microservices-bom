@@ -17,7 +17,7 @@
 	<version>${revision}</version>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<revision>1.0.RELEASE</revision>
 		<main.basedir>${basedir}</main.basedir>
 		<maven.build.timestamp.format>yyyy/MM/dd HH:mm Z</maven.build.timestamp.format>
